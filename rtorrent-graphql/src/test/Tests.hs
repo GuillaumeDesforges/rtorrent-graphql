@@ -43,6 +43,6 @@ tests = do
                 ]
             closeRtorrent :: ProcessHandle -> IO ()
             closeRtorrent handle = terminateProcess handle
-        -- Integration tests with rTorrent
+        -- Integration tests with rTorrent (back to tasty because HSpec has no resource management)
         return $ withResource openRtorrent closeRtorrent $ const spec
    in testGroup "Tests" . (: []) <$> integrationTests
