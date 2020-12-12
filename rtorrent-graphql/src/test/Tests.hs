@@ -5,9 +5,7 @@ module Tests where
 
 import Network.HTTP.Types (methodPost)
 import Network.HTTP.Types.Header (hContentType)
-import Network.Wai (Application)
 import Server (getDefaultServer)
-import System.IO.Unsafe (unsafePerformIO)
 import System.Process (ProcessHandle, spawnProcess, terminateProcess)
 import Test.Hspec (Spec, describe, it)
 import Test.Hspec.Wai (request, shouldRespondWith, with)
@@ -19,9 +17,22 @@ main :: IO ()
 main = tests >>= defaultMain
 
 tests :: IO TestTree
-tests =
+tests = do
   let integrationTests :: IO TestTree
-      integrationTests =
+      integrationTests = do
+        -- Test the GraphQL API using Test.Hspec.Wai
+        let -- The GraphQL server to be tested
+            app = getDefaultServer
+            -- Tests
+            apiResponds :: Spec
+            apiResponds = with app $ do
+              describe "Query .hello" $ do
+                it "returns data" $ do
+                  let testRequest = request methodPost "/api" [(hContentType, "application/json")] [json|{query: "{hello}"}|]
+                  testRequest `shouldRespondWith` [json|{data: {hello: "Hello world"}}|]
+        -- Build tasty tests from HSpec
+        spec <- testSpec "Integration" apiResponds
+        -- Those tests will require rTorrent to be running
         let openRtorrent :: IO ProcessHandle
             openRtorrent = do
               -- spawn rtorrent
@@ -30,17 +41,8 @@ tests =
                 [ "-n", -- do not load ~/.rtorrent.rc
                   "-o import=./rtorrent.rc" -- load ./rtorrent.rc instead
                 ]
-
             closeRtorrent :: ProcessHandle -> IO ()
             closeRtorrent handle = terminateProcess handle
-
-            apiResponds :: IO Application -> Spec
-            apiResponds app = with app $ do
-              describe "Query .hello" $ do
-                it "returns data" $ do
-                  let testRequest = request methodPost "/api" [(hContentType, "application/json")] [json|{query: "{hello}"}|]
-                  testRequest `shouldRespondWith` [json|{data: {hello: "Hello world"}}|]
-         in return $
-              withResource openRtorrent closeRtorrent $ \_ ->
-                withResource getDefaultServer mempty $ \app -> unsafePerformIO $ testSpec "Integration" (apiResponds app)
+        -- Integration tests with rTorrent
+        return $ withResource openRtorrent closeRtorrent $ const spec
    in testGroup "Tests" . (: []) <$> integrationTests
