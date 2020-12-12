@@ -11,18 +11,53 @@ author:         Guillaume Desforges <guillaume.desforges.pro@gmail.com>
 maintainer:     Guillaume Desforges <guillaume.desforges.pro@gmail.com>
 build-type:     Simple
 
+library
+  exposed-modules:
+      Api
+  other-modules:
+      Paths_rtorrent_graphql
+  hs-source-dirs:
+      ./src/lib
+  build-depends:
+      base
+    , bytestring
+    , morpheus-graphql
+    , text
+  default-language: Haskell2010
+
 executable rtorrent-graphql
   main-is: Main.hs
   other-modules:
-      Api
       Paths_rtorrent_graphql
   hs-source-dirs:
-      ./src/
+      ./src/exe
   ghc-options: -main-is Main
   build-depends:
       base
     , bytestring
     , morpheus-graphql
+    , rtorrent-graphql
     , scotty
+    , text
+  default-language: Haskell2010
+
+test-suite tasty
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  other-modules:
+      Paths_rtorrent_graphql
+  hs-source-dirs:
+      ./src/test
+  ghc-options: -main-is Tests
+  build-depends:
+      HUnit
+    , base
+    , bytestring
+    , http-test
+    , morpheus-graphql
+    , rtorrent-graphql
+    , scotty
+    , tasty
+    , tasty-hunit
     , text
   default-language: Haskell2010

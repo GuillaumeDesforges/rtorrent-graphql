@@ -3,7 +3,8 @@ resolver: lts-16.25 # ghc 8.8.4
 packages:
   - rtorrent-graphql
 
-extra-deps: []
+extra-deps:
+  - http-test-0.2.5@sha256:ff8335580e324f49f3edf6fe83bf04a5e793e9b8f991b544e73e30bbad5d60cb,1897
 
 nix:
   enable: true
