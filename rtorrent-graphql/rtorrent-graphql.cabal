@@ -1,0 +1,28 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           rtorrent-graphql
+version:        0.0.0
+description:    A HTTP Graphql server to query a rTorrent server
+author:         Guillaume Desforges <guillaume.desforges.pro@gmail.com>
+maintainer:     Guillaume Desforges <guillaume.desforges.pro@gmail.com>
+build-type:     Simple
+
+executable rtorrent-graphql
+  main-is: Main.hs
+  other-modules:
+      Api
+      Paths_rtorrent_graphql
+  hs-source-dirs:
+      ./src/
+  ghc-options: -main-is Main
+  build-depends:
+      base
+    , bytestring
+    , morpheus-graphql
+    , scotty
+    , text
+  default-language: Haskell2010

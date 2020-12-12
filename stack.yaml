@@ -1,0 +1,10 @@
+resolver: lts-16.25 # ghc 8.8.4
+
+packages:
+  - rtorrent-graphql
+
+extra-deps: []
+
+nix:
+  enable: true
+  packages: [zlib.dev, zlib.out, openssl]
