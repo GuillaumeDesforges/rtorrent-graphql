@@ -8,4 +8,4 @@ extra-deps:
 
 nix:
   enable: true
-  packages: [zlib.dev, zlib.out, openssl]
+  packages: [zlib.dev, zlib.out, openssl, rtorrent]

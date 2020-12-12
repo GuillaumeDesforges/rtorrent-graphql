@@ -14,6 +14,7 @@ build-type:     Simple
 library
   exposed-modules:
       Api
+      Server
   other-modules:
       Paths_rtorrent_graphql
   hs-source-dirs:
@@ -22,10 +23,13 @@ library
       base
     , bytestring
     , morpheus-graphql
+    , scotty
     , text
+    , wai
+    , warp
   default-language: Haskell2010
 
-executable rtorrent-graphql
+executable exe
   main-is: Main.hs
   other-modules:
       Paths_rtorrent_graphql
@@ -39,6 +43,8 @@ executable rtorrent-graphql
     , rtorrent-graphql
     , scotty
     , text
+    , wai
+    , warp
   default-language: Haskell2010
 
 test-suite tasty
@@ -50,14 +56,20 @@ test-suite tasty
       ./src/test
   ghc-options: -main-is Tests
   build-depends:
-      HUnit
-    , base
+      base
     , bytestring
-    , http-test
+    , hspec
+    , hspec-wai
+    , hspec-wai-json
+    , http-types
     , morpheus-graphql
+    , process
     , rtorrent-graphql
     , scotty
     , tasty
-    , tasty-hunit
+    , tasty-hspec
     , text
+    , wai
+    , wai-extra
+    , warp
   default-language: Haskell2010

@@ -1,2 +1,8 @@
 cradle:
   stack:
+    - path: "./rtorrent-graphql/src/lib"
+      component: "rtorrent-graphql:lib"
+    - path: "./rtorrent-graphql/src/exe"
+      component: "rtorrent-graphql:exe"
+    - path: "./rtorrent-graphql/src/test"
+      component: "rtorrent-graphql:tasty"

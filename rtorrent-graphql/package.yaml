@@ -6,17 +6,20 @@ dependencies:
   - base
   - bytestring
   - morpheus-graphql
+  - scotty
   - text
+  - wai
+  - warp
 
 library:
   source-dirs: ./src/lib
 
-executable:
-  source-dirs: ./src/exe
-  main: Main
-  dependencies:
-    - rtorrent-graphql
-    - scotty
+executables:
+  exe:
+    source-dirs: ./src/exe
+    main: Main
+    dependencies:
+      - rtorrent-graphql
 
 tests:
   tasty:
@@ -24,8 +27,11 @@ tests:
     main: Tests
     dependencies:
       - rtorrent-graphql
-      - HUnit
-      - scotty
+      - hspec
+      - hspec-wai
+      - hspec-wai-json
+      - http-types
+      - process
       - tasty
-      - tasty-hunit
-      - http-test
+      - tasty-hspec
+      - wai-extra
