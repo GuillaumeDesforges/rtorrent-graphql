@@ -2,12 +2,36 @@ name: rtorrent-graphql
 description: A HTTP Graphql server to query a rTorrent server
 author: Guillaume Desforges <guillaume.desforges.pro@gmail.com>
 
-executable:
-  source-dirs: ./src/
-  main: Main
-  dependencies:
-    - base
-    - bytestring
-    - morpheus-graphql
-    - scotty
-    - text
+dependencies:
+  - base
+  - bytestring
+  - morpheus-graphql
+  - scotty
+  - text
+  - wai
+  - warp
+
+library:
+  source-dirs: ./src/lib
+
+executables:
+  exe:
+    source-dirs: ./src/exe
+    main: Main
+    dependencies:
+      - rtorrent-graphql
+
+tests:
+  tasty:
+    source-dirs: ./src/test
+    main: Tests
+    dependencies:
+      - rtorrent-graphql
+      - hspec
+      - hspec-wai
+      - hspec-wai-json
+      - http-types
+      - process
+      - tasty
+      - tasty-hspec
+      - wai-extra
