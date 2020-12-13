@@ -5,9 +5,11 @@ author: Guillaume Desforges <guillaume.desforges.pro@gmail.com>
 dependencies:
   - base
   - bytestring
-  - morpheus-graphql
+  - morpheus-graphql >= 0.16.0
+  - mtl
   - scotty
   - text
+  - unliftio
   - wai
   - warp
 

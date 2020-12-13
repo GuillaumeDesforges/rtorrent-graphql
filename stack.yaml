@@ -5,6 +5,8 @@ packages:
 
 extra-deps:
   - http-test-0.2.5@sha256:ff8335580e324f49f3edf6fe83bf04a5e793e9b8f991b544e73e30bbad5d60cb,1897
+  - morpheus-graphql-0.16.0@sha256:f0261e51dd3bd9a118060542c56c28b374c1837d026324c3935c2ec13e1cbb3a,28509
+  - morpheus-graphql-core-0.16.0@sha256:c1b8bc18df2cb918eac3c17c6dc507742a043de469c5cd0bd22221751979f8da,15496
 
 nix:
   enable: true
