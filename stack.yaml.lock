@@ -25,6 +25,13 @@ packages:
       sha256: 9fac04b18ac5c29b0e1f74a92046b2d8f49c80fcc09df542562eb88b3ad48df2
   original:
     hackage: morpheus-graphql-core-0.16.0@sha256:c1b8bc18df2cb918eac3c17c6dc507742a043de469c5cd0bd22221751979f8da,15496
+- completed:
+    hackage: wai-middleware-auth-0.2.3.1@sha256:4376a939132be7099e0d35683e1151d98c5cedd94a5f82c1ff164ce43d648532,4303
+    pantry-tree:
+      size: 1633
+      sha256: 57afe4ae908c75554e69c34dcafb6efa8a17c3e7dc4cdc9fdb550793b5cc2020
+  original:
+    hackage: wai-middleware-auth-0.2.3.1@sha256:4376a939132be7099e0d35683e1151d98c5cedd94a5f82c1ff164ce43d648532,4303
 snapshots:
 - completed:
     size: 533252

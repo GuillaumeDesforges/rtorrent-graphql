@@ -1,14 +1,12 @@
-{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Api where
+module Api (rootResolver) where
 
 import Control.Monad.IO.Class (MonadIO)
-import Control.Monad.Writer (MonadTrans (lift), WriterT, tell)
+import Control.Monad.Writer (MonadTrans (lift))
 import Data.Morpheus.Types
   ( GQLType,
     QUERY,
@@ -18,10 +16,14 @@ import Data.Morpheus.Types
   )
 import Data.Text (Text)
 import GHC.Generics (Generic)
+import Permission (AuthenticatedContext, Permission, hasPermission)
 
-type ResolverMonad m = AuthT m
+newtype Query m = Query
+  { hello :: m Text
+  }
+  deriving (Generic, GQLType)
 
-rootResolver :: (MonadIO m) => RootResolver (ResolverMonad m) () Query Undefined Undefined
+rootResolver :: (MonadIO m, AuthenticatedContext m) => RootResolver m () Query Undefined Undefined
 rootResolver =
   RootResolver
     { queryResolver = Query {hello = resolveHello},
@@ -29,19 +31,11 @@ rootResolver =
       subscriptionResolver = Undefined
     }
 
-newtype Query m = Query
-  { hello :: m Text
-  }
-  deriving (Generic, GQLType)
+hasPermissionOrFail :: (AuthenticatedContext m) => Permission -> Resolver QUERY () m a -> Resolver QUERY () m a
+hasPermissionOrFail permission action = do
+  isPermitted <- lift $ hasPermission permission
+  if isPermitted then action else fail "Not Authorized"
 
-resolveHello :: (MonadIO m) => Resolver QUERY () (ResolverMonad m) Text
+resolveHello :: (MonadIO m, AuthenticatedContext m) => Resolver QUERY () m Text
 resolveHello = do
-  lift $ hasPermission (Permission "query.hello")
-  return "Hello world"
-
-newtype Permission = Permission {permission :: String}
-
-type AuthT = WriterT [Permission]
-
-hasPermission :: (Monad m) => Permission -> AuthT m ()
-hasPermission permission = tell [permission]
+  hasPermissionOrFail "query.hello" $ return "Hello world"

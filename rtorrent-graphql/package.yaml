@@ -3,6 +3,7 @@ description: A HTTP Graphql server to query a rTorrent server
 author: Guillaume Desforges <guillaume.desforges.pro@gmail.com>
 
 dependencies:
+  - aeson
   - base
   - bytestring
   - morpheus-graphql >= 0.16.0
@@ -11,6 +12,7 @@ dependencies:
   - text
   - unliftio
   - wai
+  - wai-middleware-auth
   - warp
 
 library:
