@@ -6,6 +6,8 @@ dependencies:
   - aeson
   - base
   - bytestring
+  - http-types
+  - jwt
   - morpheus-graphql >= 0.16.0
   - mtl
   - scotty
@@ -34,7 +36,6 @@ tests:
       - hspec
       - hspec-wai
       - hspec-wai-json
-      - http-types
       - process
       - tasty
       - tasty-hspec

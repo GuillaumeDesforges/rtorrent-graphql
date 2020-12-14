@@ -24,6 +24,8 @@ library
       aeson
     , base
     , bytestring
+    , http-types
+    , jwt
     , morpheus-graphql >=0.16.0
     , mtl
     , scotty
@@ -45,6 +47,8 @@ executable exe
       aeson
     , base
     , bytestring
+    , http-types
+    , jwt
     , morpheus-graphql >=0.16.0
     , mtl
     , rtorrent-graphql
@@ -72,6 +76,7 @@ test-suite tasty
     , hspec-wai
     , hspec-wai-json
     , http-types
+    , jwt
     , morpheus-graphql >=0.16.0
     , mtl
     , process

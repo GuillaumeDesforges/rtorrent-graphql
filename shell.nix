@@ -11,6 +11,7 @@ pkgs.mkShell {
     # dev env
     pkgs.haskell-language-server
     pkgs.stack
+    pkgs.hlint
     # rTorrent program to run tests
     pkgs.rtorrent
   ];
