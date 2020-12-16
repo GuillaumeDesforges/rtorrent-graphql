@@ -53,7 +53,7 @@ integrationTests = do
         it "fails on empty payload" $ do
           postJson "/login" [json|{}|] `shouldRespondWith` 400
         it "returns credentials on good payload" $ do
-          postJson "/login" [json|{username:"someUsername",password:"somePassword"}|] `shouldRespondWith` [json|{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.QtmAB4MXp1A9X0yJXTtag0bXsmj9A4p1l9MgHFDCOnY"}|]
+          postJson "/login" [json|{username:"someUsername",password:"somePassword"}|] `shouldRespondWith` [json|{token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtaXNzaW9uTGV2ZWwiOiJBRE1JTiJ9.N8p0W5GoPhqnAgCEa3pbFdWTG56VRI_SYX8_6cmzwB8"}|]
 
       describe "Query .hello" $ do
         it "returns data" $ do

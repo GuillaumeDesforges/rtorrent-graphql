@@ -12,6 +12,7 @@ import Control.Monad.Reader (ReaderT (runReaderT))
 import Control.Monad.Trans (MonadTrans (lift))
 import Data.Aeson (FromJSON, ToJSON, decode)
 import Data.ByteString.Lazy (ByteString)
+import qualified Data.Map as Map
 import Data.Morpheus (interpreter)
 import Data.Text.Lazy (Text, fromStrict, unpack)
 import Data.Typeable (Typeable)
@@ -19,7 +20,7 @@ import GHC.Generics (Generic)
 import Network.HTTP.Types.Status (status400)
 import Network.Wai (Application)
 import Permission (Permission)
-import qualified Web.JWT as JWT (Algorithm (HS256), JOSEHeader (JOSEHeader), JWTClaimsSet (JWTClaimsSet), alg, aud, cty, encodeSigned, exp, hmacSecret, iat, iss, jti, kid, nbf, sub, typ, unregisteredClaims)
+import qualified Web.JWT as JWT
 import Web.Scotty (scottyApp)
 import Web.Scotty.Trans (ActionT, body, json, post, raiseStatus, raw, setHeader)
 
@@ -45,7 +46,7 @@ getJwtToken = fromStrict $ JWT.encodeSigned secret header claims
           JWT.nbf = Nothing,
           JWT.iat = Nothing,
           JWT.jti = Nothing,
-          JWT.unregisteredClaims = mempty
+          JWT.unregisteredClaims = JWT.ClaimsMap {JWT.unClaimsMap = Map.fromList [("permissionLevel", "ADMIN")]}
         }
 
 getDefaultServer :: IO Application

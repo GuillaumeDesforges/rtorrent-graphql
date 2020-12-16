@@ -6,6 +6,7 @@ dependencies:
   - aeson
   - base
   - bytestring
+  - containers
   - http-types
   - jwt
   - morpheus-graphql >= 0.16.0
