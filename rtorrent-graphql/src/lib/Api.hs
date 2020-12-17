@@ -3,6 +3,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+-- | Define the GraphQL API resolution. Schema is generated from the datatypes.
 module Api (rootResolver) where
 
 import Control.Monad.IO.Class (MonadIO)

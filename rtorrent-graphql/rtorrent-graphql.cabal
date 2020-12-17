@@ -14,8 +14,12 @@ build-type:     Simple
 library
   exposed-modules:
       Api
+      Api.Login
+      JWT.Utils
       Permission
       Server
+      Web.Scotty.Action.Authorization
+      Web.Scotty.Action.Json
   other-modules:
       Paths_rtorrent_graphql
   hs-source-dirs:
@@ -29,6 +33,7 @@ library
     , jwt
     , morpheus-graphql >=0.16.0
     , mtl
+    , regex-tdfa
     , scotty
     , text
     , unliftio
@@ -53,6 +58,7 @@ executable exe
     , jwt
     , morpheus-graphql >=0.16.0
     , mtl
+    , regex-tdfa
     , rtorrent-graphql
     , scotty
     , text
@@ -83,6 +89,7 @@ test-suite tasty
     , morpheus-graphql >=0.16.0
     , mtl
     , process
+    , regex-tdfa
     , rtorrent-graphql
     , scotty
     , tasty
