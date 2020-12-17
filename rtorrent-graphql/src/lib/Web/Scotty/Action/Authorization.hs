@@ -4,7 +4,6 @@
 module Web.Scotty.Action.Authorization where
 
 import Control.Monad.Except (MonadError (catchError))
-import Control.Monad.IO.Class (MonadIO)
 import Data.Text.Lazy (Text, toStrict)
 import Network.HTTP.Types.Status (status403)
 import Text.Regex.TDFA ((=~~))
@@ -18,7 +17,7 @@ extractBearerToken text = do
   return token
 
 -- | Scotty action to get Bearer token from headers, or raises the right error to the client
-getAuthorizationHeaderBearerTokenOrFail :: (MonadFail m, MonadIO m) => ActionT Text m Text
+getAuthorizationHeaderBearerTokenOrFail :: (MonadFail m) => ActionT Text m Text
 getAuthorizationHeaderBearerTokenOrFail = do
   authorizationHeaderValue <- header "Authorization"
   case authorizationHeaderValue of
